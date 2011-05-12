@@ -1,3 +1,7 @@
+"""
+Network.py, an experimental clone of KDE's KNetwalk.
+Copyright (C) 2010-11  Edmund Horner
+"""
 import sys
 import time
 import random
