@@ -263,7 +263,7 @@ class Window(object):
 
     def draw(self):
         self.draw_map()
-        pygame.image.save(self.display, 'network%04d.png' % self.frame)
+        #pygame.image.save(self.display, 'network%04d.png' % self.frame)
         self.frame += 1
 
     def draw_tile(self, tile, row, col):
