@@ -662,7 +662,7 @@ def main(args=None):
                 window.draw()
                 pygame.display.flip()
 
-    pygame.quit
+    pygame.quit()
 
 
 try:
