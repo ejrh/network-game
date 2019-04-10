@@ -10,6 +10,8 @@ import pygame
 
 HEAT_DECAY = (-0.015, -0.015, -0.015)
 
+MAX_DISTANCE = 30
+
 
 def heat_flow(h1, h2):
     a = max(0, h1[0] - h2[0]) / 2.0
@@ -55,6 +57,7 @@ class Tile(object):
         self.live_end = False
         self.mark = False
         self.ai_rotations = 0
+        self.distance = 0
 
     def rotate(self, steps=1):
         self.ports = self.ports[steps:] + self.ports[:steps]
@@ -144,12 +147,20 @@ class Map(object):
                 continue
             x,y = self.get_coords(s.x, s.y, r)
             t = Tile(x, y)
+            t.distance = s.distance + 1
             self.tiles[y][x] = t
             if sum(s.ports) < 3:
                 s.ports[r] = True
                 t.ports[(r+2)%4] = True
-                seed_list.append(t)
+                if t.distance < MAX_DISTANCE:
+                    seed_list.append(t)
                 next_seed = (next_seed+1) % self.num_seeds
+
+        # Fill in any remaining empty tiles
+        for i,row in enumerate(self.tiles):
+            for j,tile in enumerate(row):
+                if tile is None:
+                    row[j] = Tile(j,i)
 
         for row in self.tiles:
             for t in row:
