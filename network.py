@@ -729,6 +729,8 @@ def main(args=None):
             if map.update():
                 window.draw()
                 pygame.display.flip()
+        elif ev.type == pygame.QUIT:
+            break
 
     pygame.quit()
 
